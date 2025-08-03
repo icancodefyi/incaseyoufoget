@@ -124,13 +124,23 @@ def chat_with_ai(request: ChatRequest):
                 context_items.append(f"Memory: {payload} (score: {score:.2f})")
 
         prompt = f"""
-You are a helpful assistant that helps summarize personal memory logs. 
-Based on the user's question: "{request.query}", use the following memory snippets to give a relevant response:
+You are a personal assistant that helps the user reflect on their past digital activity.
+
+The user asked: "{request.query}"
+
+Use the following memory snippets to generate your response. Stay strictly within this context:
 
 {chr(10).join(f'- {item}' for item in context_items)}
 
-Provide a helpful, conversational response. If you don’t have relevant information, say: "I don’t have any relevant information about that."
+Guidelines:
+- Only answer using the context above.
+- If none of the snippets are relevant, respond with:
+  "I don’t have any relevant information about that right now."
+- Do not answer unrelated questions or attempt tasks outside the memory data.
+
+Now respond to the user's question accordingly.
 """
+
 
         gemini_response = model.generate_content(prompt)
         reply = gemini_response.text
