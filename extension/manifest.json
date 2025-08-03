@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "InCaseYouForget",
+  "version": "1.0",
+  "description": "Your passive AI memory for the web",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting",
+    "clipboardRead"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/confusion.png"
+  },
+  "action": {
+    "default_title": "InCaseYouForget"
+  }
+}
