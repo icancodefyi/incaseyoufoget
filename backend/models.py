@@ -8,3 +8,8 @@ class LogItem(BaseModel):
     timestamp: datetime
     text: str | None = None
     title: str | None = None
+    
+class WaitlistEntry(BaseModel):
+    fullName: str
+    email: str
+    company: str | None = None
